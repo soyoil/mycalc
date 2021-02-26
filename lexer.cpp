@@ -6,13 +6,21 @@ enum TokenTypes {
     DOUBLE,
     LPAR,
     RPAR,
-    EXPR,
-    TERM
+    OP2,
+    OP1
 };
 
 class Token {
    public:
     Token(std::string source, TokenTypes tType) : value(source), tokenType(tType) {}
+
+    TokenTypes getTokenType() {
+        return tokenType;
+    }
+
+    std::string getValue() {
+        return value;
+    }
 
     std::string toString() const {
         std::string str;
@@ -29,11 +37,11 @@ class Token {
             case TokenTypes::RPAR:
                 str = "RPAR";
                 break;
-            case TokenTypes::EXPR:
-                str = "EXPR";
+            case TokenTypes::OP2:
+                str = "OP2";
                 break;
-            case TokenTypes::TERM:
-                str = "TERM";
+            case TokenTypes::OP1:
+                str = "OP1";
                 break;
             default:
                 break;
@@ -72,16 +80,16 @@ class Lexer {
             }
             switch (program[i]) {
                 case '+':
-                    tokenQueue->push_back(new Token("+", TokenTypes::EXPR));
+                    tokenQueue->push_back(new Token("+", TokenTypes::OP2));
                     break;
                 case '-':
-                    tokenQueue->push_back(new Token("-", TokenTypes::EXPR));
+                    tokenQueue->push_back(new Token("-", TokenTypes::OP2));
                     break;
                 case '*':
-                    tokenQueue->push_back(new Token("*", TokenTypes::TERM));
+                    tokenQueue->push_back(new Token("*", TokenTypes::OP1));
                     break;
                 case '/':
-                    tokenQueue->push_back(new Token("/", TokenTypes::TERM));
+                    tokenQueue->push_back(new Token("/", TokenTypes::OP1));
                     break;
                 case '(':
                     tokenQueue->push_back(new Token("(", TokenTypes::LPAR));
