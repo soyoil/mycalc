@@ -1,19 +1,19 @@
 #include <string>
 
-#include "parser.cpp"
+#include "evaluator.cpp"
 
 int main(void) {
     std::string program;
     Lexer *lexer;
     Node *tree;
+    long double result;
 
     while (std::getline(std::cin, program)) {
         if (std::cin.eof()) break;
         lexer = new Lexer(program);
-        std::cout << lexer->toString() << std::endl;
         tree = Parser::parse(lexer->getQueue());
-        std::cout << tree->toString() << std::endl;
-        delete tree;
+        result = Evaluator::evaluate(tree);
+        std::cout << "Result: " << std::fixed << result << std::endl;
         delete lexer;
     }
     return 0;

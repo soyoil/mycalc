@@ -6,8 +6,6 @@ class Node {
         : tokenType(tType), value(tokenValue) {}
 
     virtual std::string toString() const { return value; }
-
-   protected:
     const TokenTypes tokenType;
     const std::string value;
 };
@@ -33,8 +31,6 @@ class BinaryNode : public Node {
     std::string toString() const override {
         return "(" + left->toString() + value + right->toString() + ")";
     }
-
-   private:
     const Node *left;
     const Node *right;
 };
